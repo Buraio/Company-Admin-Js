@@ -1,30 +1,28 @@
 import { form, inputs } from "./register.js";
-import { loginWithApi, verifyAdmin } from './adminPage/accountApi.js';
+import { userLogin, validateUser } from "./api/auth/index.js";
 
-export function loginUser() {
+export const userLoginAction = () => {
+    const [email, password] = inputs;
 
-  const [ email, password ] = inputs;
-  form.addEventListener('submit', async (e) => {
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
 
-    e.preventDefault();
+        const loginData = {};
+        loginData.email = email.value;
+        loginData.password = password.value;
 
-    const loginData = {};
-    loginData.email = email.value;
-    loginData.password = password.value;
+        const accessToken = await userLogin(loginData);
 
-    const loginToken = await loginWithApi(loginData);
+        if (!accessToken.error) {
+            localStorage.setItem("token", JSON.stringify(accessToken.token));
 
-    if (!loginToken.error) {
-      localStorage.setItem('token', JSON.stringify(loginToken));
-  
-      const accountType = await verifyAdmin(loginToken.token);
-  
-      if (accountType.is_admin === true) {
-        location.replace('../adminPage/index.html');
-      }
-      else {
-        location.replace('../userPage/index.html');
-      }
-    }
-  })
+            const accountType = await validateUser(accessToken.token);
+
+            if (accountType.is_admin === true) {
+                location.replace("../adminPage/index.html");
+            } else {
+                location.replace("../userPage/index.html");
+            }
+        }
+    });
 };
