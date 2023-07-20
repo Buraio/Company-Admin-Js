@@ -1,21 +1,13 @@
-import { getAllCompanies } from "../../scripts/homePage/homePageApi.js";
-import { sectorSelect, renderCards } from "../../scripts/homePage/homePage.js";
-import { redirectHeaderBtn } from "../../scripts/homePage/redirect.js";
+import { renderCards } from "../../scripts/home/renderCards.js";
+import { enableSectorFilter as sectorFilter } from "../../scripts/home/sectorFilter.js";
+import { enableHeaderRedirect as headerRedirect } from "../../scripts/utils/headerRedirect.js";
 
-const headers = { 'Content-Type': 'application/json' }
-const companyArr = await getAllCompanies();
 const pageHref = {
-  login:    './src/pages/login/index.html',
-  register: './src/pages/register/index.html',
-  homePage: './index.html'
-}
+    login: "./src/pages/login/index.html",
+    register: "./src/pages/register/index.html",
+};
 
-redirectHeaderBtn(pageHref);
+headerRedirect(pageHref);
 
-renderCards(companyArr);
-
-sectorSelect();
-
-pageHref.homePage = '../../../index.html';
-
-export { headers, pageHref, companyArr };
+renderCards();
+sectorFilter();
