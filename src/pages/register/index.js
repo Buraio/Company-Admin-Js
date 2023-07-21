@@ -1,9 +1,5 @@
-import { pageHref } from "../homePage/index.js";
-import { redirectHeaderBtn } from "../../scripts/homePage/redirect.js";
-import { registerUser } from "../../scripts/register.js";
+import { registerUserAction as registerUser } from "../../scripts/register/index.js";
+import { enableHeaderRedirect as headerRedirect } from "../../scripts/utils/headerRedirect.js";
 
-pageHref.login    = '../login/index.html';
-
-redirectHeaderBtn(pageHref);
-
+headerRedirect();
 registerUser();

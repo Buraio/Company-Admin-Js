@@ -1,4 +1,4 @@
-import { getAllCompanies } from "../api/companies/index.js";
+import { getAllCompanies } from "../api/company/index.js";
 import { companyCard } from "./companyCard.js";
 
 const companyListElem = document.querySelector(".companyList");

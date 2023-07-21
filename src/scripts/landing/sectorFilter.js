@@ -1,4 +1,8 @@
-import { getAllCompanies, getAllSectors, getCompaniesBySector } from "../api/companies/index.js";
+import {
+    getAllCompanies,
+    getAllSectors,
+    getCompaniesBySector,
+} from "../api/company/index.js";
 import { renderCards, renderFilteredCards } from "./renderCards.js";
 
 const selectInput = document.querySelector("#sectorSelect");

@@ -1,44 +1,41 @@
-import { createDepartment } from './adminModal/createDepartment.js';
-import { deleteDepartment } from './adminModal/deleteDepartment.js';
-import { updateDepartment } from './adminModal/editDepartment.js';
-import { readDepartment } from './adminModal/readDepartment.js';
+import { createDepartmentAction } from "./adminModal/createDepartment.js";
+import { deleteDepartment } from "./adminModal/deleteDepartment.js";
+import { updateDepartment } from "./adminModal/editDepartment.js";
+import { readDepartment } from "./adminModal/readDepartment.js";
 
 async function crudCallFunction() {
-
-  createDepartment();
-  readDepartment();
-  updateDepartment();
-  deleteDepartment();
-
+    createDepartmentAction();
+    readDepartment();
+    updateDepartment();
+    deleteDepartment();
 }
 
 const dynamicModal = () => {
+    const divBack = document.querySelector(".divBack");
+    const divContainer = document.createElement("form");
+    const closeModalBtn = document.createElement("img");
 
-  const divBack       = document.querySelector('.divBack');
-  const divContainer  = document.createElement('form');
-  const closeModalBtn = document.createElement('img');
+    divBack.classList.remove("hidden");
+    divBack.classList.add("show");
+    divContainer.classList.add("divContainer");
+    closeModalBtn.classList.add("closeModal");
 
-  divBack.classList.remove('hidden');
-  divBack.classList.add('show');
-  divContainer.classList.add('divContainer');
-  closeModalBtn.classList.add('closeModal');
+    document.body.classList.add("noScroll");
 
-  document.body.classList.add('noScroll');
+    closeModalBtn.src = "../../assets/icons/xIcon.svg";
 
-  closeModalBtn.src = '../../assets/icons/xIcon.svg'
+    divContainer.appendChild(closeModalBtn);
+    divBack.appendChild(divContainer);
 
-  divContainer.appendChild(closeModalBtn);
-  divBack.appendChild(divContainer);
+    closeModalBtn.addEventListener("click", () => {
+        divContainer.remove();
+        divBack.classList.add("hidden");
+        divBack.classList.remove("show");
 
-  closeModalBtn.addEventListener('click', () => {
-    divContainer.remove();
-    divBack.classList.add('hidden');
-    divBack.classList.remove('show');
+        document.body.classList.remove("noScroll");
+    });
 
-    document.body.classList.remove('noScroll');
-  })
-
-  return divContainer;
-}
+    return divContainer;
+};
 
 export { dynamicModal, crudCallFunction };

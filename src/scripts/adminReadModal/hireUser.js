@@ -1,4 +1,4 @@
-import { baseUrl } from "../homePage/homePageApi.js";
+
 
 export const hireUser = async (token, body) => {
 

@@ -1,62 +1,33 @@
-import { baseUrl } from "../homePage/homePageApi.js";
-import { headers, companyArr } from '../../pages/homePage/index.js'
-import { renderDepartmentCards } from './getAccount.js';
+import { renderDepartmentCards } from "./getAccount.js";
 import { crudCallFunction } from "../adminModal.js";
-import { validAdminToken } from "../../pages/adminPage/index.js";
+import { getAllCompanies } from "../api/company/index.js";
+import { getDepartmentsByCompany } from "../api/department/index.js";
 
-function selectCompany(input) {
+const accessToken = localStorage.getItem("token");
 
-  companyArr.forEach(company => {
+export const selectCompany = async (input) => {
+    const companyList = await getAllCompanies();
 
-    const sectorOption = document.createElement('option');
-    sectorOption.innerText = company.name;
-    sectorOption.value     = company.uuid;
+    companyList.forEach((company) => {
+        const sectorOption = document.createElement("option");
+        sectorOption.innerText = company.name;
+        sectorOption.value = company.uuid;
 
-    input.appendChild(sectorOption);
-  });
-  filterDepartmentByCompany(input, companyArr)
-}
-
-const getAllDepartments = async (token) => {
-
-  const request = await fetch(`${baseUrl}/departments`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
-    }
-  })
-
-  const response = await request.json();
-  return response;
-}
-
-const getDepartmentsByCompany = async (token, id) => {
-
-  const request = await fetch(`${baseUrl}/departments/${id}`, {
-    method: 'GET',
-    headers: {
-      headers,
-      'Authorization': `Bearer ${token}`
-    }
-  })
-
-  const response = await request.json();
-  return response;
-}
+        input.appendChild(sectorOption);
+    });
+    filterDepartmentByCompany(input, companyList);
+};
 
 const filterDepartmentByCompany = (input) => {
+    input.addEventListener("change", async () => {
+        const companyId = input.value;
+        const filterArr = await getDepartmentsByCompany(accessToken, companyId);
 
-  input.addEventListener('change', async () => {
+        if (filterArr) {
+            renderDepartmentCards(filterArr);
+            crudCallFunction();
+        }
+    });
+};
 
-    const companyId = input.value;
-    const filterArr = await getDepartmentsByCompany(validAdminToken, companyId);
-
-    if (filterArr) {
-      renderDepartmentCards(filterArr);
-      crudCallFunction();
-    }
-  })
-}
-
-export { getAllDepartments, filterDepartmentByCompany, selectCompany };
+export { filterDepartmentByCompany };

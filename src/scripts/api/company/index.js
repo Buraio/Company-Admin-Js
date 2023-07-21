@@ -2,6 +2,18 @@ import { BaseFetch, baseUrl } from "../index.js";
 
 const baseFetch = new BaseFetch();
 
+export const createCompany = async (accessToken, body) => {
+    const requestObj = {
+        url: `${baseUrl}companies`,
+        method: "POST",
+        token: accessToken,
+        body,
+    };
+
+    const createdCompany = await baseFetch.bodyAndAuth(requestObj);
+    return createdCompany;
+};
+
 export const getAllCompanies = async () => {
     const requestObj = {
         url: `${baseUrl}companies`,
