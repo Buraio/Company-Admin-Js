@@ -1,9 +1,9 @@
-import { registerUser } from "./api/users/index.js";
+import { registerUser } from "../api/user/index.js";
 
 const form = document.querySelector(".formContainer");
 const inputs = document.querySelectorAll(".inputData");
 
-const registerUserAction = () => {
+export const registerUserAction = () => {
     const [name, email, password, expLevel] = inputs;
 
     form.addEventListener("submit", async (e) => {
@@ -23,5 +23,3 @@ const registerUserAction = () => {
         }
     });
 };
-
-export { form, inputs, registerUserAction as registerUser };

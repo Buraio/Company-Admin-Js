@@ -9,7 +9,7 @@ export class BaseFetch {
                     "Content-type": "application/json",
                     Authorization: `Bearer ${token}`,
                 },
-                body,
+                body: JSON.stringify(body),
             });
 
             const response = await request.json();

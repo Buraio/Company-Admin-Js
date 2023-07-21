@@ -1,5 +1,7 @@
-import { form, inputs } from "./register.js";
-import { userLogin, validateUser } from "./api/auth/index.js";
+import { userLogin, validateUser } from "../api/auth/index.js";
+
+const form = document.querySelector(".formContainer");
+const inputs = document.querySelectorAll(".inputData");
 
 export const userLoginAction = () => {
     const [email, password] = inputs;
@@ -14,14 +16,14 @@ export const userLoginAction = () => {
         const accessToken = await userLogin(loginData);
 
         if (!accessToken.error) {
-            localStorage.setItem("token", JSON.stringify(accessToken.token));
+            localStorage.setItem("token", accessToken.token);
 
             const accountType = await validateUser(accessToken.token);
 
             if (accountType.is_admin === true) {
-                location.replace("../adminPage/index.html");
+                location.replace("../admin/index.html");
             } else {
-                location.replace("../userPage/index.html");
+                location.replace("../user/index.html");
             }
         }
     });
