@@ -1,21 +1,15 @@
-import { pageHref } from "../homePage/index.js";
-import { getUserInfo, userInfo } from "../../scripts/home/userInfo.js";
-import { renderCoworkers } from "../../scripts/home/coworkers.js";
-import { apiUserProfile } from "../../scripts/home/getApi.js";
-import { getCoworkers } from "../../scripts/home/getApi.js";
+import { userInfo } from "../../scripts/home/userInfo.js";
+import { renderCoworkers } from "../../scripts/home/renderCoworkers.js";
 import { validateToken } from "../../scripts/utils/validateToken.js";
-
-const loggedUser     = await apiUserProfile();
-const coworkersArray    = await getCoworkers();
+import { enableHeaderRedirect as headerRedirect } from "../../scripts/utils/headerRedirect.js";
+import { createUserInfoCard as userInfoCard } from "../../scripts/home/userInfoCard.js";
 
 validateToken();
 
-redirectHeaderBtn(pageHref);
+headerRedirect();
 
-getUserInfo();
+userInfoCard();
 
 userInfo();
 
 renderCoworkers();
-
-export { loggedUser, coworkersArray };

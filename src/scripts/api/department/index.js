@@ -1,8 +1,9 @@
 import { BaseFetch, baseUrl } from "../index.js";
 
 const baseFetch = new BaseFetch();
+const token = localStorage.getItem("token");
 
-export const createDepartment = async (token, body) => {
+export const createDepartment = async (body) => {
     const requestObj = {
         url: `${baseUrl}departments`,
         method: "POST",
@@ -14,33 +15,33 @@ export const createDepartment = async (token, body) => {
     return createdDepartment;
 };
 
-export const getAllDepartments = async (accessToken) => {
+export const getAllDepartments = async () => {
     const requestObj = {
         url: `${baseUrl}departments`,
         method: "GET",
-        token: accessToken,
+        token,
     };
 
     const departmentList = await baseFetch.onlyAuth(requestObj);
     return departmentList;
 };
 
-export const getDepartmentsByCompany = async (accessToken, id) => {
+export const getDepartmentsByCompany = async (id) => {
     const requestObj = {
         url: `${baseUrl}departments/${id}`,
         method: "GET",
-        token: accessToken,
+        token,
     };
 
     const departmentList = await baseFetch.onlyAuth(requestObj);
     return departmentList;
 };
 
-export const updateDepartment = async (accessToken, body, id) => {
+export const updateDepartment = async (body, id) => {
     const requestObj = {
         url: `${baseUrl}departments/${id}`,
         method: "PATCH",
-        token: accessToken,
+        token,
         body,
     };
 
@@ -48,11 +49,11 @@ export const updateDepartment = async (accessToken, body, id) => {
     return updatedDepartment;
 };
 
-export const deleteDepartment = async (accessToken, id) => {
+export const deleteDepartment = async (id) => {
     const requestObj = {
         url: `${baseUrl}departments/${id}`,
         method: "DELETE",
-        token: accessToken,
+        token,
     };
 
     await baseFetch.onlyAuth(requestObj);

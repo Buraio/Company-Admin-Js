@@ -13,18 +13,20 @@ export const userLoginAction = () => {
         loginData.email = email.value;
         loginData.password = password.value;
 
-        const accessToken = await userLogin(loginData);
+        const userAccess = await userLogin(loginData);
 
-        if (!accessToken.error) {
-            localStorage.setItem("token", accessToken.token);
+        if (!userAccess.error) {
+            localStorage.setItem("token", userAccess.token);
 
-            const accountType = await validateUser(accessToken.token);
+            setTimeout(async () => {
+                const accountType = await validateUser(userAccess.token);
 
-            if (accountType.is_admin === true) {
-                location.replace("../admin/index.html");
-            } else {
-                location.replace("../user/index.html");
-            }
+                if (accountType.is_admin === true) {
+                    location.replace("../admin/index.html");
+                } else {
+                    location.replace("../home/index.html");
+                }
+            }, 300);
         }
     });
 };

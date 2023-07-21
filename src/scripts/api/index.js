@@ -1,5 +1,11 @@
 export const baseUrl = "http://localhost:6278/";
 
+/*
+    API DIRECTORY NOTES:
+
+    - All the directories inside 'api' dir are named according to the url's endpoint in the api routes
+*/
+
 export class BaseFetch {
     async bodyAndAuth({ url, method, token, body }) {
         try {

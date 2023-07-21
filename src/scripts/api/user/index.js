@@ -1,19 +1,10 @@
 import { BaseFetch, baseUrl } from "../index.js";
 
 const baseFetch = new BaseFetch();
+const token = localStorage.getItem("token");
 
-export const registerUser = async (body) => {
-    const requestObj = {
-        url: `${baseUrl}auth/register`,
-        method: "POST",
-        body,
-    };
-
-    const createdUser = await baseFetch.bodyAndNoAuth(requestObj);
-    return createdUser;
-};
-
-export const getAllUsers = async (token) => {
+/* GET */
+export const getAllUsers = async () => {
     const requestObj = {
         url: `${baseUrl}users`,
         method: "GET",
@@ -24,13 +15,48 @@ export const getAllUsers = async (token) => {
     return userList;
 };
 
-export const getAllUsersOutOfWork = async (token) => {
+export const getUserInfo = async () => {
     const requestObj = {
-        url: `${baseUrl}admin/out_of_work`,
+        url: `${baseUrl}users/profile`,
         method: "GET",
         token,
     };
 
-    const userList = await baseFetch.onlyAuth(requestObj);
-    return userList;
+    const userInfo = await baseFetch.onlyAuth(requestObj);
+    return userInfo;
+};
+
+export const getAuthenticatedUserDepartment = async () => {
+    const requestObj = {
+        url: `${baseUrl}users/departments`,
+        method: "GET",
+        token,
+    };
+
+    const userDepartment = await baseFetch.onlyAuth(requestObj);
+    return userDepartment;
+};
+
+export const getUserCoworkers = async () => {
+    const requestObj = {
+        url: `${baseUrl}users/departments/coworkers`,
+        method: "GET",
+        token,
+    };
+
+    const userDepartment = await baseFetch.onlyAuth(requestObj);
+    return userDepartment;
+};
+
+/* PATCH */
+export const updateUserProfile = async (body) => {
+    const requestObj = {
+        url: `${baseUrl}users`,
+        method: "PATCH",
+        token,
+        body,
+    };
+
+    const updatedUser = await baseFetch.bodyAndAuth(requestObj);
+    return updatedUser;
 };

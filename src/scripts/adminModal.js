@@ -10,32 +10,34 @@ async function crudCallFunction() {
     deleteDepartment();
 }
 
-const dynamicModal = () => {
-    const divBack = document.querySelector(".divBack");
-    const divContainer = document.createElement("form");
-    const closeModalBtn = document.createElement("img");
+const dynamicModal = (heading) => {
+    const modalBackground = document.querySelector(".divBack");
+    const modalContainer = document.createElement("div");
+    const modalContentElem = document.createElement("form");
+    const closeModalBtn = document.createElement("button");
+    const closeModalImg = document.createElement("img");
 
-    divBack.classList.remove("hidden");
-    divBack.classList.add("show");
-    divContainer.classList.add("divContainer");
-    closeModalBtn.classList.add("closeModal");
+    modalBackground.classList.remove("hidden");
+    modalBackground.classList.add("show");
+    modalContainer.classList.add("divContainer");
+    closeModalImg.classList.add("closeModal");
 
     document.body.classList.add("noScroll");
 
-    closeModalBtn.src = "../../assets/icons/xIcon.svg";
+    closeModalImg.src = "../../assets/icons/xIcon.svg";
 
-    divContainer.appendChild(closeModalBtn);
-    divBack.appendChild(divContainer);
+    modalContainer.appendChild(closeModalImg);
+    modalBackground.appendChild(modalContainer);
 
-    closeModalBtn.addEventListener("click", () => {
-        divContainer.remove();
-        divBack.classList.add("hidden");
-        divBack.classList.remove("show");
+    closeModalImg.addEventListener("click", () => {
+        modalContainer.remove();
+        modalBackground.classList.add("hidden");
+        modalBackground.classList.remove("show");
 
         document.body.classList.remove("noScroll");
     });
 
-    return divContainer;
+    return modalContainer;
 };
 
 export { dynamicModal, crudCallFunction };

@@ -6,15 +6,11 @@ import { deleteUser } from "../../scripts/adminModal/deleteUser.js";
 import { enableHeaderRedirect as headerRedirect } from "../../scripts/utils/headerRedirect.js";
 import { validateToken } from "../../scripts/utils/validateToken.js";
 
-const adminCompanySelect = document.querySelector("#adminCompanySelect");
-const userList = document.querySelector("#userList");
-const departmentList = document.querySelector("#departments");
-
 validateToken();
 
 headerRedirect();
 
-selectCompany(adminCompanySelect);
+selectCompany();
 
 getUserData();
 
@@ -23,5 +19,3 @@ crudCallFunction();
 updateUser();
 
 deleteUser();
-
-export { adminCompanySelect, userList, departmentList };

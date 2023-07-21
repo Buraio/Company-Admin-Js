@@ -1,12 +1,13 @@
-import { editUserProfile } from "./getApi.js";
 import { dynamicModal } from "../adminModal.js";
-import { validUserToken, loggedUser } from "../../pages/home/index.js";
 import { removeModal } from "../adminModal/createDepartment.js";
+import {
+    updateUserProfile,
+} from "../api/user/index.js";
 
 function userInfo() {
     const editUserInfoBtn = document.querySelector(".editInfoBtn");
 
-    editUserInfoBtn.addEventListener("click", async () => {
+    editUserInfoBtn.addEventListener("click", () => {
         const modalContainer = dynamicModal();
         editUserModal(modalContainer);
 
@@ -19,8 +20,7 @@ function userInfo() {
             userDataBody.email = emailEditInput.value;
             userDataBody.password = `${passwordEditInput.value}`;
 
-            editUserProfile(validUserToken, userDataBody);
-            getUserInfo();
+            updateUserProfile(userDataBody);
 
             removeModal(modalContainer);
         });
@@ -61,24 +61,6 @@ const editUserModal = (container) => {
     );
 };
 
-const getUserInfo = async () => {
-    const userNameHeading = document.querySelector(".userName");
-    const userEmailSpan = document.querySelector(".userEmail");
-    const userExpSpan = document.querySelector(".userExp");
-    const workingType = document.querySelector(".workingType");
 
-    userNameHeading.innerText = loggedUser.username;
-    userEmailSpan.innerText = loggedUser.email;
 
-    const expIsTrue = !!loggedUser.professional_level;
-    const workingTypeIsTrue = !!loggedUser.kind_of_work;
-
-    if (expIsTrue) {
-        userExpSpan.innerText = loggedUser.professional_level;
-    }
-    if (workingTypeIsTrue) {
-        workingType.innerText = loggedUser.kind_of_work;
-    }
-};
-
-export { getUserInfo, userInfo };
+export { userInfo };
