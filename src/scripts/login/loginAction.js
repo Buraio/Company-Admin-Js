@@ -1,4 +1,4 @@
-import { userLogin, validateUser } from "../api/auth/index.js";
+import { userLogin, validateUser } from "../api/routes/auth.routes.js";
 
 const form = document.querySelector(".formContainer");
 const inputs = document.querySelectorAll(".inputData");

@@ -1,7 +1,6 @@
-import { BaseFetch, baseUrl } from "../index.js";
+import { BaseFetch, baseUrl } from "../baseFetch.class.js";
 
 const baseFetch = new BaseFetch();
-const token = localStorage.getItem("token");
 
 export const registerUser = async (body) => {
     const requestObj = {
@@ -25,11 +24,11 @@ export const userLogin = async (body) => {
     return accessToken;
 };
 
-export const validateUser = async () => {
+export const validateUser = async (token) => {
     const requestObj = {
         url: `${baseUrl}auth/validate_user`,
         method: "GET",
-        token: token,
+        token,
     };
 
     const validatedUser = await baseFetch.onlyAuth(requestObj);

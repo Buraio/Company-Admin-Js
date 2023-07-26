@@ -1,4 +1,4 @@
-import { BaseFetch, baseUrl } from "../index.js";
+import { BaseFetch, baseUrl } from "../baseFetch.class.js";
 
 const baseFetch = new BaseFetch();
 const token = localStorage.getItem("token");
@@ -47,6 +47,29 @@ export const updateDepartment = async (body, id) => {
 
     const updatedDepartment = await baseFetch.bodyAndAuth(requestObj);
     return updatedDepartment;
+};
+
+export const hireWorker = async (body) => {
+    const requestObj = {
+        url: `${baseUrl}departments/hire`,
+        method: "PATCH",
+        token,
+        body,
+    };
+
+    const hiredWorker = await baseFetch.bodyAndAuth(requestObj);
+    return hiredWorker;
+};
+
+export const dismissWorker = async (id) => {
+    const requestObj = {
+        url: `${baseUrl}departments/dismiss/${id}`,
+        method: "PATCH",
+        token,
+    };
+
+    const message = await baseFetch.onlyAuth(requestObj);
+    return message;
 };
 
 export const deleteDepartment = async (id) => {

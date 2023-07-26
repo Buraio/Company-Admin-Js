@@ -1,4 +1,4 @@
-import { BaseFetch, baseUrl } from "../index.js";
+import { BaseFetch, baseUrl } from "../baseFetch.class.js";
 
 const baseFetch = new BaseFetch();
 const token = localStorage.getItem("token");
@@ -49,7 +49,7 @@ export const getUserCoworkers = async () => {
 };
 
 /* PATCH */
-export const updateUserProfile = async (body) => {
+export const updateOwnUserProfile = async (body) => {
     const requestObj = {
         url: `${baseUrl}users`,
         method: "PATCH",

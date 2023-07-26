@@ -1,4 +1,4 @@
-import { registerUser } from "../api/auth/index.js";
+import { registerUser } from "../api/routes/auth.routes.js";
 
 const form = document.querySelector(".formContainer");
 const inputs = document.querySelectorAll(".inputData");

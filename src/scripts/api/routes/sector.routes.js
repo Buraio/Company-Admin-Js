@@ -1,4 +1,4 @@
-import { BaseFetch, baseUrl } from "../index.js";
+import { BaseFetch, baseUrl } from "../baseFetch.class.js";
 
 const baseFetch = new BaseFetch();
 
