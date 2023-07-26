@@ -1,27 +1,23 @@
 import {
     getAuthenticatedUserDepartment,
     getUserCoworkers,
-} from "../api/user/index.js";
+} from "../api/routes/user.routes.js";
 import { createCoworkerCard } from "./coworkerCard.js";
 
 const userCompanyElem = document.querySelector(".companyHeader");
 const coworkerList = document.querySelector("#coworkerList");
-const currentDepartment = getAuthenticatedUserDepartment();
-const userCoworkerList = getUserCoworkers();
+const companyObj = await getAuthenticatedUserDepartment();
+const userCoworkerList = await getUserCoworkers();
 
 export const renderCoworkers = () => {
-    if (!currentDepartment.error && userCoworkerList.length > 0) {
-        const departmentUuid = currentDepartment.uuid;
+    if (!companyObj.error && userCoworkerList.length > 0) {
+        const department = userCoworkerList[0];
 
-        userCoworkerList.users.forEach((department) => {
-            if (departmentUuid === department.uuid) {
-                userCompanyElem.innerText = `${currentDepartment.name} - ${department.name}`;
+        department.users.forEach((user) => {
+            userCompanyElem.innerText = `${companyObj.name} - ${department.name}`;
 
-                department.users.forEach((user) => {
-                    const coworkerCard = createCoworkerCard(user);
-                    coworkerList.appendChild(coworkerCard);
-                });
-            }
+            const coworkerCard = createCoworkerCard(user);
+            coworkerList.appendChild(coworkerCard);
         });
     }
 };
