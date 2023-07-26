@@ -1,5 +1,5 @@
-import { getAllCompanies, getCompaniesBySector } from "../api/company/index.js";
-import { getAllSectors } from "../api/sector/index.js";
+import { getAllCompanies, getCompaniesBySector } from "../api/routes/company.routes.js";
+import { getAllSectors } from "../api/routes/sector.routes.js";
 import { renderCards, renderFilteredCards } from "./renderCards.js";
 
 const selectInput = document.querySelector("#sectorSelect");
