@@ -3,7 +3,8 @@ import { removeModal } from "./createDepartment.js";
 import { listDepartmentUsers } from "../adminReadModal/dismissUser.js";
 import { hireUser } from "../adminReadModal/hireUser.js";
 import { getAllDepartments } from "../api/department/index.js";
-import { getAllUsers, getAllUsersOutOfWork } from "../api/user/index.js";
+import { getAllUsers } from "../api/user/index.js";
+import { getAllUsersOutOfWork } from "../api/admin/index.js";
 
 const accessToken = localStorage.getItem("token");
 

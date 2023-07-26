@@ -1,12 +1,13 @@
-import { BaseFetch, baseUrl } from "../index.js";
+import { BaseFetch, baseUrl } from "../baseFetch.class.js";
 
 const baseFetch = new BaseFetch();
+const token = localStorage.getItem("token");
 
-export const createCompany = async (accessToken, body) => {
+export const createCompany = async (body) => {
     const requestObj = {
         url: `${baseUrl}companies`,
         method: "POST",
-        token: accessToken,
+        token,
         body,
     };
 
@@ -22,16 +23,6 @@ export const getAllCompanies = async () => {
 
     const companyArr = await baseFetch.noBodyAndNoAuth(requestObj);
     return companyArr;
-};
-
-export const getAllSectors = async () => {
-    const requestObj = {
-        url: `${baseUrl}sectors`,
-        method: "GET",
-    };
-
-    const sectorArr = await baseFetch.noBodyAndNoAuth(requestObj);
-    return sectorArr;
 };
 
 export const getCompaniesBySector = async (sectorStr) => {

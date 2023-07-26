@@ -1,15 +1,17 @@
-import { userList, departmentList } from "../../pages/admin/index.js";
 import { getAllDepartments } from "../api/department/index.js";
 import { getAllUsers } from "../api/user/index.js";
+
+const userListElem = document.querySelector("#userList");
+const departmentListElem = document.querySelector("#departments");
 
 const accessToken = localStorage.getItem("token");
 
 function renderDepartmentCards(arr) {
-    departmentList.innerHTML = "";
+    departmentListElem.innerHTML = "";
     arr.forEach((department) => {
         const card = departmentCard(department);
         if (card) {
-            departmentList.append(card);
+            departmentListElem.append(card);
         }
     });
 }
@@ -19,7 +21,7 @@ async function getUserData() {
         const departmentArr = await getAllDepartments(accessToken);
 
         const userArr = await getAllUsers(accessToken);
-        renderUserCards(userList, userArr);
+        renderUserCards(userListElem, userArr);
         renderDepartmentCards(departmentArr);
     }
 }
